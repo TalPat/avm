@@ -7,8 +7,8 @@ template<eOperandType T>
 class Operand: public IOperand
 {
 private:
-  eOperandType type;
-  std::string value;
+  eOperandType _type;
+  double _value;
 public:
   Operand(std::string& value);
   ~Operand();
@@ -23,6 +23,9 @@ public:
   IOperand const* operator%( IOperand const& rhs ) const; // Modulo
 
   std::string const& toString(void) const; // String representation of the instance
+
+  void setValue(double value);
+  double getValue(void) const;
 };
 
 #endif
