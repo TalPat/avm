@@ -95,4 +95,16 @@ void Vm::vmMod(void){
     _stack.push_back(result);
 }
 
+void Vm::vmPrint(void) const{
+    if (_stack.back()->getType() != Int8) {
+        //throw err
+    }
+    char c = std::stoi(_stack.back()->toString());
+    std::cout << c << std::endl; 
+}
+
+void Vm::vmExit(void) const{
+    //clear memory
+    exit(0);
+}
 //Getters and setters
