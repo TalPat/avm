@@ -40,8 +40,59 @@ void Vm::vmAssert(std::string value, eOperandType valType) const{
     }
 }
 
-void Vm::vmAdd(void) const{
-    
+void Vm::vmAdd(void){
+    if (_stack.size < 2) {
+        //throw err
+    }
+    std::list<IOperand const*>::reverse_iterator rit = _stack.rbegin();
+    IOperand const* result = ((*(*rit)) + (*(*(++rit))));
+    this->vmPop();
+    this->vmPop();
+    _stack.push_back(result);
+}
+
+void Vm::vmSub(void){
+    if (_stack.size < 2) {
+        //throw err
+    }
+    std::list<IOperand const*>::reverse_iterator rit = _stack.rbegin();
+    IOperand const* result = ((*(*rit)) - (*(*(++rit))));
+    this->vmPop();
+    this->vmPop();
+    _stack.push_back(result);
+}
+
+void Vm::vmMul(void){
+    if (_stack.size < 2) {
+        //throw err
+    }
+    std::list<IOperand const*>::reverse_iterator rit = _stack.rbegin();
+    IOperand const* result = ((*(*rit)) * (*(*(++rit))));
+    this->vmPop();
+    this->vmPop();
+    _stack.push_back(result);
+}
+
+void Vm::vmDiv(void){
+    if (_stack.size < 2) {
+        //throw err
+    }
+    std::list<IOperand const*>::reverse_iterator rit = _stack.rbegin();
+    IOperand const* result = ((*(*rit)) / (*(*(++rit))));
+    this->vmPop();
+    this->vmPop();
+    _stack.push_back(result);
+}
+
+void Vm::vmMod(void){
+    if (_stack.size < 2) {
+        //throw err
+    }
+    std::list<IOperand const*>::reverse_iterator rit = _stack.rbegin();
+    IOperand const* result = ((*(*rit)) % (*(*(++rit))));
+    this->vmPop();
+    this->vmPop();
+    _stack.push_back(result);
 }
 
 //Getters and setters

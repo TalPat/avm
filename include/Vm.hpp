@@ -19,11 +19,11 @@ public:
     void vmPop(void);
     void vmDump(void) const;
     void vmAssert(std::string value, eOperandType type) const;
-    void vmAdd(void) const;
-    void vmSub(void) const;
-    void vmMul(void) const;
-    void vmDiv(void) const;
-    void vmMod(void) const;
+    void vmAdd(void);
+    void vmSub(void);
+    void vmMul(void);
+    void vmDiv(void);
+    void vmMod(void);
     void vmPrint(void) const;
     void vmExit(void) const;
 };
