@@ -1,9 +1,10 @@
 #include "OperandFactory.hpp"
 #include "Operand.hpp"
 
-OperandFactory::OperandFactory():
-  _createArr({&this->createInt8, &this->createInt16, &this->createInt32, &this->createFloat, &this->createDouble})
+OperandFactory::OperandFactory()//:
+  // _createArr({&OperandFactory::createInt8, &OperandFactory::createInt16, &OperandFactory::createInt32, &OperandFactory::createFloat, &OperandFactory::createDouble})
 {
+  // _createArr = {&OperandFactory::createInt8, &OperandFactory::createInt16, &OperandFactory::createInt32, &OperandFactory::createFloat, &OperandFactory::createDouble};
 }
 
 OperandFactory::~OperandFactory()
@@ -11,7 +12,9 @@ OperandFactory::~OperandFactory()
 }
 
 IOperand const* OperandFactory::createOperand(eOperandType type, std::string& value) const{
-  return (this->_createArr[type](value));
+  typedef IOperand const* (OperandFactory::*fnCreate)(std::string& value) const;
+  fnCreate _createArr[5] = {&OperandFactory::createInt8, &OperandFactory::createInt16, &OperandFactory::createInt32, &OperandFactory::createFloat, &OperandFactory::createDouble};
+  return ((this->*(_createArr[type]))(value));
 }
 
 IOperand const* OperandFactory::createInt8(std::string& value) const{

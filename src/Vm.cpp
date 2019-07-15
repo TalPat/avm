@@ -22,7 +22,7 @@ void Vm::vmPush(std::string value, eOperandType valType) {
 }
 
 void Vm::vmPop(void) {
-    if (_stack.size < 1) {
+    if (_stack.size() < 1) {
         //throw error
     }
     _stack.pop_back();
@@ -41,7 +41,7 @@ void Vm::vmAssert(std::string value, eOperandType valType) const{
 }
 
 void Vm::vmAdd(void){
-    if (_stack.size < 2) {
+    if (_stack.size() < 2) {
         //throw err
     }
     std::list<IOperand const*>::reverse_iterator rit = _stack.rbegin();
@@ -52,7 +52,7 @@ void Vm::vmAdd(void){
 }
 
 void Vm::vmSub(void){
-    if (_stack.size < 2) {
+    if (_stack.size() < 2) {
         //throw err
     }
     std::list<IOperand const*>::reverse_iterator rit = _stack.rbegin();
@@ -63,7 +63,7 @@ void Vm::vmSub(void){
 }
 
 void Vm::vmMul(void){
-    if (_stack.size < 2) {
+    if (_stack.size() < 2) {
         //throw err
     }
     std::list<IOperand const*>::reverse_iterator rit = _stack.rbegin();
@@ -74,7 +74,7 @@ void Vm::vmMul(void){
 }
 
 void Vm::vmDiv(void){
-    if (_stack.size < 2) {
+    if (_stack.size() < 2) {
         //throw err
     }
     std::list<IOperand const*>::reverse_iterator rit = _stack.rbegin();
@@ -85,7 +85,7 @@ void Vm::vmDiv(void){
 }
 
 void Vm::vmMod(void){
-    if (_stack.size < 2) {
+    if (_stack.size() < 2) {
         //throw err
     }
     std::list<IOperand const*>::reverse_iterator rit = _stack.rbegin();

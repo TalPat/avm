@@ -7,6 +7,7 @@ template <eOperandType T>
 Operand<T>::Operand(std::string& value): _type(T)
 {
     _value = std::stod(value);
+    _operandFactory = new OperandFactory;
 }
 
 template <eOperandType T>
@@ -40,14 +41,13 @@ std::string const& Operand<T>::toString(void) const {
 template <eOperandType T>
 IOperand const* Operand<T>::operator+( IOperand const& rhs ) const{
     Operand* Op;
-    const eOperandType type = rhs.getType();
     double value = 0;
     if (_type > rhs.getPrecision()){
-        Op = new Operand<T>("0");
+        Op = new Operand<T>(toString());
     } else {
-        Op = new Operand<type>("0");
+        Op = _operandFactory->createOperand(rhs.getType(), toString());
     }
-    value = _value + std::stod(rhs.toString());
+    value += std::stod(rhs.toString());
     if (Op->getPrecision() < 3) {
         value = round(value);
     }
@@ -59,11 +59,11 @@ IOperand const* Operand<T>::operator-( IOperand const& rhs ) const{
     Operand* Op;
     double value = 0;
     if (_type > rhs.getPrecision()){
-        Op = new Operand<T>("0");
+        Op = new Operand<T>(toString());
     } else {
-        Op = new Operand<rhs.getPrecision()>("0");
+        Op = _operandFactory->createOperand(rhs.getType(), toString());
     }
-    value = _value - std::stod(rhs.toString());
+    value -= std::stod(rhs.toString());
     if (Op->getPrecision() < 3) {
         value = round(value);
     }
@@ -75,11 +75,11 @@ IOperand const* Operand<T>::operator*( IOperand const& rhs ) const{
     Operand* Op;
     double value = 0;
     if (_type > rhs.getPrecision()){
-        Op = New Operand<T>("0");
+        Op = new Operand<T>(toString());
     } else {
-        Op = new Operand<rhs.getPrecision()>("0");
+        Op = _operandFactory->createOperand(rhs.getType(), toString());
     }
-    value = _value * std::stod(rhs.toString());
+    value *= std::stod(rhs.toString());
     if (Op->getPrecision() < 3) {
         value = round(value);
     }
@@ -91,11 +91,11 @@ IOperand const* Operand<T>::operator/( IOperand const& rhs ) const{
     Operand* Op;
     double value = 0;
     if (_type > rhs.getPrecision()){
-        Op = New Operand<T>("0");
+        Op = new Operand<T>(toString());
     } else {
-        Op = new Operand<rhs.getPrecision()>("0");
+        Op = _operandFactory->createOperand(rhs.getType(), toString());
     }
-    value = _value / std::stod(rhs.toString());
+    value /= std::stod(rhs.toString());
     if (Op->getPrecision() < 3) {
         value = round(value);
     }
@@ -107,9 +107,9 @@ IOperand const* Operand<T>::operator%( IOperand const& rhs ) const{
     Operand* Op;
     double value = 0;
     if (_type > rhs.getPrecision()){
-        Op = New Operand<T>("0");
+        Op = new Operand<T>(toString());
     } else {
-        Op = new Operand<rhs.getPrecision()>("0");
+        Op = _operandFactory->createOperand(rhs.getType(), toString());
     }
     value = _value % std::stod(rhs.toString());
     if (Op->getPrecision() < 3) {
