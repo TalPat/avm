@@ -3,14 +3,15 @@
 
 #include "SToken.hpp"
 #include <list>
+#include <iostream>
 
-class parser
+class Parser
 {
 private:
 public:
     //Constructor and destructor
-    parser(/* args */);
-    ~parser();
+    Parser(/* args */);
+    ~Parser();
 
     //Copy constructor & assignment overide
 

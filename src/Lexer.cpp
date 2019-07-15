@@ -121,3 +121,6 @@ void Lexer::tokenize(void) {
 }
 
 //Getters and setters
+std::list<SToken*> Lexer::getTokenList(void) {
+    return (this->_tokenList);
+}

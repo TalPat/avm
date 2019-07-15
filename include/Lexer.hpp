@@ -31,6 +31,7 @@ public:
     void tokenize(void);
 
     //Getters and setters
+    std::list<SToken*> getTokenList();
 };
 
 #endif
