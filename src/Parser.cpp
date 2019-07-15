@@ -25,7 +25,7 @@ void Parser::checkGrammar(std::list<SToken*> tokenList) {
 
   for (;it != tokenList.end(); it++) {
     if (currentToken.value == "\n") {
-      if ((*it)->name != "Instruction" || (*it)->value != "\n") /*throw error*/std::cout << "Error "+currentToken.value+"--"+(*it)->value << std::endl;
+      if ((*it)->name != "Instruction" && (*it)->value != "\n") /*throw error*/std::cout << "Error: current token val:("+currentToken.value+")--it value:("+(*it)->value << ")--it name:(" +(*it)->name << std::endl;
     } else if (currentToken.name == "Instruction") {
       if (currentToken.value == "push" || currentToken.value == "assert"){
         if ((*it)->name != "Type") /*throw error*/std::cout << "Error "+currentToken.value+"--"+(*it)->value << std::endl;
@@ -34,10 +34,10 @@ void Parser::checkGrammar(std::list<SToken*> tokenList) {
       }
     } else if (currentToken.name == "Type" && (*it)->value == "(") {
       it++;
-      if (currentToken.name == "float" || currentToken.name == "double") {
-        if ((*it)->name != "fValue") /*throw error*/std::cout << "Error "+currentToken.value+"--"+(*it)->value << std::endl;
+      if (currentToken.value == "float" || currentToken.value == "double") {
+        if ((*it)->name != "fValue") /*throw error*/std::cout << "Error: current token val:("+currentToken.value+")--it value:("+(*it)->value << ")--it name:(" +(*it)->name << std::endl;
       } else {
-        if ((*it)->name != "iValue") /*throw error*/std::cout << "Error "+currentToken.value+"--"+(*it)->value << std::endl;
+        if ((*it)->name != "iValue") /*throw error*/std::cout << "Error: current token val:("+currentToken.value+")--it value:("+(*it)->value << ")--it name:(" +(*it)->name << std::endl;
       }
       it++;
       if ((*it)->value != ")") /*throw error*/std::cout << "Error "+currentToken.value+"--"+(*it)->value << std::endl;

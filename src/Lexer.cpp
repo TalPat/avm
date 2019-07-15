@@ -48,7 +48,9 @@ bool Lexer::isInt(std::string str) {
     std::string::const_iterator it = str.begin();
     if ((*it == '-' && str.length() > 1) || std::isdigit(*it)) {
         it++;
-        while (it != str.end() && std::isdigit(*it)) ++it;
+        while ((it != str.end()) && (std::isdigit(*it))){
+            ++it;
+        }
         return !str.empty() && it == str.end();
     } else {
         return (false);
@@ -75,7 +77,7 @@ std::string Lexer::determineName(std::string token) {
     else if (isFloat(token)) return("fValue");
     else {
         //throw lexing error
-        /* */return ("basd");
+        /* */return ("Bad name");
     }
 }
 
@@ -113,8 +115,9 @@ void Lexer::tokenize(void) {
             }
         }
         if (stringSize == _source.length()) {
+            /* */std::cout << "error-------------------------------------------" << std::endl;
             /* */break;
-            //throw error
+            //throw error 
         }
         stringSize = _source.length();
     }

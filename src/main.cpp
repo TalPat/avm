@@ -1,9 +1,11 @@
 #include "Lexer.hpp"
 #include "Parser.hpp"
+#include "Vm.hpp"
 
 int main(int argc, char** argv) {
     Lexer lexer;
     Parser parser;
+    Vm vm;
     
     if (argc == 1) {
         lexer.fetchFromIn();
@@ -13,4 +15,5 @@ int main(int argc, char** argv) {
         lexer.tokenize();
     }
     parser.checkGrammar(lexer.getTokenList());
+    vm.vmExecute(lexer.getTokenList());
 }

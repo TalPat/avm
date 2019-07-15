@@ -32,7 +32,7 @@ eOperandType Operand<T>::getType(void) const {
 
 template <eOperandType T>
 std::string const& Operand<T>::toString(void) const {
-    return(string::to_string(_value));
+    return(std::to_string(_value));
 }
 
 //Binary operator overloads
@@ -40,11 +40,12 @@ std::string const& Operand<T>::toString(void) const {
 template <eOperandType T>
 IOperand const* Operand<T>::operator+( IOperand const& rhs ) const{
     Operand* Op;
+    const eOperandType type = rhs.getType();
     double value = 0;
     if (_type > rhs.getPrecision()){
-        Op = New Operand<T>("0");
+        Op = new Operand<T>("0");
     } else {
-        Op = new Operand<rhs.getPrecision()>("0");
+        Op = new Operand<type>("0");
     }
     value = _value + std::stod(rhs.toString());
     if (Op->getPrecision() < 3) {
@@ -58,7 +59,7 @@ IOperand const* Operand<T>::operator-( IOperand const& rhs ) const{
     Operand* Op;
     double value = 0;
     if (_type > rhs.getPrecision()){
-        Op = New Operand<T>("0");
+        Op = new Operand<T>("0");
     } else {
         Op = new Operand<rhs.getPrecision()>("0");
     }

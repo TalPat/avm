@@ -18,18 +18,18 @@ IOperand const* OperandFactory::createInt8(std::string& value) const{
   return (new Operand<Int8>(value));
 }
 
-IOperand const* OperandFactory::createInt8(std::string& value) const{
+IOperand const* OperandFactory::createInt16(std::string& value) const{
   return (new Operand<Int16>(value));
 }
 
-IOperand const* OperandFactory::createInt8(std::string& value) const{
+IOperand const* OperandFactory::createInt32(std::string& value) const{
   return (new Operand<Int32>(value));
 }
 
-IOperand const* OperandFactory::createInt8(std::string& value) const{
+IOperand const* OperandFactory::createFloat(std::string& value) const{
   return (new Operand<Float>(value));
 }
 
-IOperand const* OperandFactory::createInt8(std::string& value) const{
+IOperand const* OperandFactory::createDouble(std::string& value) const{
   return (new Operand<Double>(value));
 }

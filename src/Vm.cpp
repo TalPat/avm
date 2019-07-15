@@ -107,4 +107,25 @@ void Vm::vmExit(void) const{
     //clear memory
     exit(0);
 }
+
+void Vm::vmExecute(std::list<SToken*> stlist) {
+    std::list<SToken*>::iterator it = stlist.begin();
+    for (;it != stlist.end(); it++)
+    {
+        std::string value = (*it)->value;
+        if ((*it)->name == "Instruction") {
+            if (value == "push") vmPush((*(std::next(it, 4)))->value,_typeMap[(*(std::next(it, 2)))->value]);
+            else if (value == "pop") vmPop();
+            else if (value == "dump") vmDump();
+            else if (value == "assert") vmAssert((*(std::next(it, 4)))->value,_typeMap[(*(std::next(it, 2)))->value]);
+            else if (value == "add") vmAdd();
+            else if (value == "sub") vmSub();
+            else if (value == "mul") vmMul();
+            else if (value == "div") vmDiv();
+            else if (value == "mod") vmMod();
+            else if (value == "print") vmPrint();
+            else if (value == "exit") vmExit();
+        }
+    }
+}
 //Getters and setters
