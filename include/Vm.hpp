@@ -20,8 +20,11 @@ private:
         {"Double", Double},
     };
 public:
+    //constructor and destructor
     Vm(/* args */);
     ~Vm();
+
+    //copy constructor && assignment overload
 
     //vm commands
     void vmPush(std::string value, eOperandType type);
@@ -37,6 +40,8 @@ public:
     void vmExit(void) const;
 
     void vmExecute(std::list<SToken*> tokenList);
+
+    //getters and setters
 };
 
 #endif
