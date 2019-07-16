@@ -1,5 +1,5 @@
 #include "OperandFactory.hpp"
-#include "Operand.hpp"
+#include "Operand.cpp"
 
 OperandFactory::OperandFactory()//:
   // _createArr({&OperandFactory::createInt8, &OperandFactory::createInt16, &OperandFactory::createInt32, &OperandFactory::createFloat, &OperandFactory::createDouble})

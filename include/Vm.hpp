@@ -3,7 +3,7 @@
 
 #include <list>
 #include <map>
-#include "Operand.hpp"
+#include "../src/Operand.cpp"
 #include "OperandFactory.hpp"
 #include "SToken.hpp"
 
@@ -12,13 +12,6 @@ class Vm
 private:
     std::list<IOperand const*> _stack;
     OperandFactory _factory;
-    std::map<std::string, eOperandType> _typeMap = {
-        {"Int8", Int8},
-        {"Int16", Int16},
-        {"Int32", Int32},
-        {"Float", Float},
-        {"Double", Double},
-    };
 public:
     //constructor and destructor
     Vm(/* args */);
