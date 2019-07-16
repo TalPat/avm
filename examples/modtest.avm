@@ -1,0 +1,5 @@
+push int8(5)
+push float(2.5)
+mod
+dump
+exit

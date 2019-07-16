@@ -1,0 +1,6 @@
+push int8(2)
+push float(99)
+mul
+dump
+
+exit

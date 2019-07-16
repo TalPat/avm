@@ -19,7 +19,6 @@ Vm::~Vm()
 
 void Vm::vmPush(std::string value, eOperandType valType) {
     _stack.push_back(_factory.createOperand(valType, value));
-    std::cout << "push";
 }
 
 void Vm::vmPop(void) {
@@ -27,8 +26,6 @@ void Vm::vmPop(void) {
         //throw error
     }
     _stack.pop_back();
-
-    std::cout << "pop";
 }
 
 void Vm::vmDump(void) const {
@@ -36,8 +33,13 @@ void Vm::vmDump(void) const {
     // for (; rit != _stack.rend(); rit++) {
     //     std::cout << (*rit)->toString() << std::endl;
     // }
+    std::list<std::string> strlist;
+
     for (IOperand const* i: _stack) {
-        std::cout << "asd" << i->toString() << "dsa" << std::endl;
+        strlist.push_front(i->toString());
+    }
+    for (std::string j: strlist) {
+        std::cout << j << std::endl;
     }
 }
 
@@ -117,21 +119,23 @@ void Vm::vmExit(void) const{
 
 void Vm::vmExecute(std::list<SToken*> stlist) {
     std::map<std::string, eOperandType> typeMap = {
-        {"Int8", Int8},
-        {"Int16", Int16},
-        {"Int32", Int32},
-        {"Float", Float},
-        {"Double", Double},
+        {"int8", Int8},
+        {"int16", Int16},
+        {"int32", Int32},
+        {"float", Float},
+        {"double", Double},
     };
     std::list<SToken*>::iterator it = stlist.begin();
     for (;it != stlist.end(); it++)
     {
         std::string value = (*it)->value;
         if ((*it)->name == "Instruction") {
-            if (value == "push") vmPush((*(std::next(it, 3)))->value,typeMap[(*(std::next(it, 2)))->value]);
+            if (value == "push") {
+                vmPush((*(std::next(it, 3)))->value,typeMap[(*(std::next(it, 1)))->value]);
+            }
             else if (value == "pop") vmPop();
             else if (value == "dump") vmDump();
-            else if (value == "assert") vmAssert((*(std::next(it, 3)))->value,typeMap[(*(std::next(it, 2)))->value]);
+            else if (value == "assert") vmAssert((*(std::next(it, 3)))->value,typeMap[(*(std::next(it, 1)))->value]);
             else if (value == "add") vmAdd();
             else if (value == "sub") vmSub();
             else if (value == "mul") vmMul();
@@ -139,9 +143,6 @@ void Vm::vmExecute(std::list<SToken*> stlist) {
             else if (value == "mod") vmMod();
             else if (value == "print") vmPrint();
             else if (value == "exit") vmExit();
-            /* */std::cout << "---------------------------v" << std::endl; for (IOperand const* i: _stack) {
-        std::cout << i->toString() << std::endl;
-    }; std::cout << "-------------------------------^" << std::endl;
         }
     }
 }

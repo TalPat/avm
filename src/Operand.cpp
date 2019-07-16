@@ -101,6 +101,9 @@ public:
       Op = operandFactory.createOperand(T, strVal);
     } else {
       if (rhs.getPrecision() < 3) {
+          std::cout << "rounding here" << std::endl;
+          std::cout << rhs.getPrecision() << std::endl;
+          std::cout << rhs.getType() << std::endl;
         value = round(value);
       }
       strVal = std::to_string(value);
@@ -162,7 +165,6 @@ public:
 
   std::string const& toString(void) const // String representation of the instance
   {
-    /* */std::cout << _strVal << std::endl;
     return(_strVal);
   }
 
