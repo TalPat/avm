@@ -1,5 +1,6 @@
 #include "Vm.hpp"
 #include <iostream>
+#include <iomanip> 
 
 //Constructor & destructor
 
@@ -29,17 +30,22 @@ void Vm::vmPop(void) {
 }
 
 void Vm::vmDump(void) const {
+    //Wtf is happening here
     // std::list<IOperand const*>::reverse_iterator rit = _stack.rbegin();
     // for (; rit != _stack.rend(); rit++) {
     //     std::cout << (*rit)->toString() << std::endl;
     // }
-    std::list<std::string> strlist;
+    std::list<IOperand const*> rlist;
 
     for (IOperand const* i: _stack) {
-        strlist.push_front(i->toString());
+        rlist.push_front(i);
     }
-    for (std::string j: strlist) {
-        std::cout << j << std::endl;
+    for (IOperand const* j: rlist) {
+        if (j->getPrecision() < 3) {
+            std::cout << j->toString() << std::endl;
+        } else {
+            std::cout << j->toString() << std::endl;
+        }
     }
 }
 

@@ -99,7 +99,7 @@ void Lexer::tokenize(void) {
                     stoken->name = determineName(word);
                     stoken->value = word;
                     _tokenList.push_back(stoken);
-                    /* */std::cout << _tokenList.back()->name << " " << _tokenList.back()->value << std::endl;
+                    //* */std::cout << _tokenList.back()->name << " " << _tokenList.back()->value << std::endl;
                     _source.erase(0, word.length());
                     break;
                 }
@@ -108,7 +108,7 @@ void Lexer::tokenize(void) {
                     stoken->name = determineName(_source.substr(0, _source.find(")")));
                     stoken->value = _source.substr(0, _source.find(")"));
                     _tokenList.push_back(stoken);
-                    /* */std::cout << _tokenList.back()->name << " " << _tokenList.back()->value << std::endl;
+                    //* */std::cout << _tokenList.back()->name << " " << _tokenList.back()->value << std::endl;
                     _source.erase(0, _source.substr(0, _source.find(")")).length());
                     break;
                 }
