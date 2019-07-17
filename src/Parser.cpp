@@ -62,5 +62,10 @@ Parser::InvalidInstructionExcepion::InvalidInstructionExcepion(int line, std::st
 const char* Parser::InvalidInstructionExcepion::what() const throw() {
     std::string line = std::to_string(Parser::InvalidInstructionExcepion::_line);
     std::string message = "line: " + line + ": " + Parser::InvalidInstructionExcepion::_message;
-    return(message.c_str());
+    const char* myStr = message.c_str();
+
+    char *b = new char[message.length() + 1]{};
+    std::copy(myStr, myStr + message.length(), b); //Ubuntu doesnt like strings passing through what
+
+    return(b);
 }

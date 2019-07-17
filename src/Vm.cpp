@@ -30,11 +30,6 @@ void Vm::vmPop(void) {
 }
 
 void Vm::vmDump(void) const {
-    //Wtf is happening here
-    // std::list<IOperand const*>::reverse_iterator rit = _stack.rbegin();
-    // for (; rit != _stack.rend(); rit++) {
-    //     std::cout << (*rit)->toString() << std::endl;
-    // }
     std::list<IOperand const*> rlist;
 
     for (IOperand const* i: _stack) {
@@ -71,7 +66,7 @@ void Vm::vmSub(void){
         //throw err
     }
     std::list<IOperand const*>::reverse_iterator rit = _stack.rbegin();
-    IOperand const* result = ((*(*rit)) - (*(*(++rit))));
+    IOperand const* result = *(*std::next(rit)) - *(*rit);
     this->vmPop();
     this->vmPop();
     _stack.push_back(result);
@@ -93,7 +88,7 @@ void Vm::vmDiv(void){
         //throw err
     }
     std::list<IOperand const*>::reverse_iterator rit = _stack.rbegin();
-    IOperand const* result = ((*(*rit)) / (*(*(++rit))));
+    IOperand const* result = *(*std::next(rit)) / *(*rit);
     this->vmPop();
     this->vmPop();
     _stack.push_back(result);
@@ -104,7 +99,7 @@ void Vm::vmMod(void){
         //throw err
     }
     std::list<IOperand const*>::reverse_iterator rit = _stack.rbegin();
-    IOperand const* result = ((*(*rit)) % (*(*(++rit))));
+    IOperand const* result = *(*std::next(rit)) % *(*rit);
     this->vmPop();
     this->vmPop();
     _stack.push_back(result);

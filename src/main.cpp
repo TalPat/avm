@@ -17,6 +17,7 @@ int main(int argc, char** argv) {
             lexer.tokenize();
         }
         parser.checkGrammar(lexer.getTokenList());
+        vm.vmExecute(lexer.getTokenList());
     }
     catch(const Lexer::BadFileException& e)
     {
@@ -33,5 +34,14 @@ int main(int argc, char** argv) {
         std::cerr << e.what() << std::endl;
         return (1);
     }
-    vm.vmExecute(lexer.getTokenList());
+    catch(const IOperand::OverflowException& e)
+    {
+        std::cerr << e.what() << std::endl;
+        return (1);
+    }
+    catch(const IOperand::UnderflowException& e)
+    {
+        std::cerr << e.what() << std::endl;
+        return (1);
+    }
 }

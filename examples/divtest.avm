@@ -1,5 +1,5 @@
-push int8(5)
-push float(2.5)
+push int32(3)
+push int32(20)
 div
 dump
 exit

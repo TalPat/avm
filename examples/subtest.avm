@@ -1,5 +1,5 @@
-push int8(5)
-push float(2.5)
+push int8(1)
+push int8(-126)
 sub
 dump
 exit

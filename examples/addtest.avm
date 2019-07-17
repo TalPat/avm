@@ -1,5 +1,5 @@
-push int8(5)
-push float(2.5)
+push int32(0)
+push double(0.000012)
 add
 dump
 exit

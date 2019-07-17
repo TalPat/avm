@@ -1,5 +1,5 @@
-push int8(-2)
-push float(99.0)
+push int16(-9999)
+push int8(-99)
 mul
 dump
 

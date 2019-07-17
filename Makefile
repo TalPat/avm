@@ -5,7 +5,8 @@ SRC				= 	main.cpp\
 					Operand.cpp\
 					OperandFactory.cpp\
 					Parser.cpp\
-					Vm.cpp
+					Vm.cpp\
+					IOperand.cpp
 
 SRCPATH		:=	$(addprefix $(SRCDIR), $(SRC))
 OBJDIR		=	obj/

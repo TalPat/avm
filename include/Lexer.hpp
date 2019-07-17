@@ -8,6 +8,7 @@
 #include <iostream>
 #include <algorithm>
 #include "SToken.hpp"
+#include <exception>
 
 class Lexer
 {

@@ -41,7 +41,7 @@ void Lexer::fetchFromIn(void) {
 
 void Lexer::removeComments(void) {
     while (_source.find(';') != std::string::npos) {
-        _source.erase(_source.find(';'),_source.find('\n', _source.find(';')) - _source.find(';') + 1);
+        _source.erase(_source.find(';'),_source.find('\n', _source.find(';')) - _source.find(';'));
     }
 }
 
@@ -141,5 +141,10 @@ Lexer::LexingException::LexingException(int line, std::string message) {
 const char* Lexer::LexingException::what() const throw() {
     std::string line = std::to_string(Lexer::LexingException::_line);
     std::string message = "line: " + line + ": " + Lexer::LexingException::_message;
-    return(message.c_str());
+    const char* myStr = message.c_str();
+
+    char *b = new char[message.length() + 1]{};
+    std::copy(myStr, myStr + message.length(), b); //Ubuntu doesnt like strings passing through what
+
+    return(b);
 }

@@ -5,20 +5,62 @@
 #include "OperandFactory.hpp"
 #include <math.h>
 #include <iostream>
+#include <sstream>
+#include <limits>
 
-template<eOperandType T>
+template<eOperandType T, class U>
 class Operand: public IOperand
 {
 private:
   eOperandType _type;
   double _value;
+  U _typeValue;
   std::string _strVal;
 public:
   //constructor and destructor
   Operand(std::string& value): _type(T)
   {
       _value = std::stod(value);
-      _strVal = value;
+      switch (T)
+      {
+      case 0:
+        if (_value > std::numeric_limits<int8_t>::max())
+          throw OverflowException("int8");
+        if (_value < std::numeric_limits<int8_t>::min())
+          throw UnderflowException("int8");
+        break;
+      case 1:
+        if (_value > std::numeric_limits<int16_t>::max())
+          throw OverflowException("int16");
+        if (_value < std::numeric_limits<int16_t>::min())
+          throw UnderflowException("int16");
+        break;
+      case 2:
+        if (_value > std::numeric_limits<int32_t>::max())
+          throw OverflowException("int32");
+        if (_value < std::numeric_limits<int32_t>::min())
+          throw UnderflowException("int32");
+        break;
+      case 3:
+        if (_value > std::numeric_limits<float_t>::max())
+          throw OverflowException("float");
+        if (_value < std::numeric_limits<float_t>::min())
+          throw UnderflowException("float");
+        break;
+      case 4:
+        if (_value > std::numeric_limits<double_t>::max())
+          throw OverflowException("double");
+        if (_value < std::numeric_limits<double_t>::min())
+          throw UnderflowException("double");
+        break;
+      
+      default:
+        break;
+      }
+      _typeValue = _value;
+      std::stringstream ss;
+      ss << _typeValue;
+      _strVal = ss.str();
   }
   ~Operand() {}
 
@@ -43,17 +85,13 @@ public:
 
     value = _value + std::stod(rhs.toString());
 
+    std::stringstream ss;
+    ss << value;
+    strVal = ss.str();
+
     if (_type > rhs.getPrecision()){
-      if (getPrecision() < 3) {
-        value = round(value);
-      }
-      strVal = std::to_string(value);
       Op = operandFactory.createOperand(T, strVal);
     } else {
-      if (rhs.getPrecision() < 3) {
-        value = round(value);
-      }
-      strVal = std::to_string(value);
       Op = operandFactory.createOperand(rhs.getType(), strVal);
     }
 
@@ -68,17 +106,13 @@ public:
 
     value = _value - std::stod(rhs.toString());
 
+    std::stringstream ss;
+    ss << value;
+    strVal = ss.str();
+
     if (_type > rhs.getPrecision()){
-      if (getPrecision() < 3) {
-        value = round(value);
-      }
-      strVal = std::to_string(value);
       Op = operandFactory.createOperand(T, strVal);
     } else {
-      if (rhs.getPrecision() < 3) {
-        value = round(value);
-      }
-      strVal = std::to_string(value);
       Op = operandFactory.createOperand(rhs.getType(), strVal);
     }
 
@@ -93,20 +127,13 @@ public:
 
     value = _value * std::stod(rhs.toString());
 
+    std::stringstream ss;
+    ss << value;
+    strVal = ss.str();
+
     if (_type > rhs.getPrecision()){
-      if (getPrecision() < 3) {
-        value = round(value);
-      }
-      strVal = std::to_string(value);
       Op = operandFactory.createOperand(T, strVal);
     } else {
-      if (rhs.getPrecision() < 3) {
-          std::cout << "rounding here" << std::endl;
-          std::cout << rhs.getPrecision() << std::endl;
-          std::cout << rhs.getType() << std::endl;
-        value = round(value);
-      }
-      strVal = std::to_string(value);
       Op = operandFactory.createOperand(rhs.getType(), strVal);
     }
 
@@ -120,18 +147,13 @@ public:
     std::string strVal;
 
     value = _value / std::stod(rhs.toString());
+    std::stringstream ss;
+    ss << value;
+    strVal = ss.str();
 
     if (_type > rhs.getPrecision()){
-      if (getPrecision() < 3) {
-        value = round(value);
-      }
-      strVal = std::to_string(value);
       Op = operandFactory.createOperand(T, strVal);
     } else {
-      if (rhs.getPrecision() < 3) {
-        value = round(value);
-      }
-      strVal = std::to_string(value);
       Op = operandFactory.createOperand(rhs.getType(), strVal);
     }
 
@@ -146,17 +168,13 @@ public:
 
     value = static_cast<int>(round(_value)) % static_cast<int>(round(std::stod(rhs.toString())));
 
+    std::stringstream ss;
+    ss << value;
+    strVal = ss.str();
+
     if (_type > rhs.getPrecision()){
-      if (getPrecision() < 3) {
-        value = round(value);
-      }
-      strVal = std::to_string(value);
       Op = operandFactory.createOperand(T, strVal);
     } else {
-      if (rhs.getPrecision() < 3) {
-        value = round(value);
-      }
-      strVal = std::to_string(value);
       Op = operandFactory.createOperand(rhs.getType(), strVal);
     }
 

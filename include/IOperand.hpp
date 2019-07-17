@@ -18,6 +18,23 @@ class IOperand {
     virtual std::string const& toString(void) const = 0; // String representation of the instance
 
     virtual ~IOperand( void ) {}
+
+    //Exceptions
+    class OverflowException : public std::exception {
+      private:
+        std::string _type;
+      public:
+        OverflowException(std::string type);
+        virtual const char* what() const throw();
+    };
+
+    class UnderflowException : public std::exception {
+      private:
+        std::string _type;
+      public:
+        UnderflowException(std::string type);
+        virtual const char* what() const throw();
+    };
 };
 
 #endif
