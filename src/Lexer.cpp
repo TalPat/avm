@@ -25,6 +25,7 @@ void Lexer::fetchFromFile(std::string avmFile) {
         myfile.close();
     } else {
         // throw error
+        throw BadFileException();
         /* */std::cout << "failing" << std::endl;
     }
 }
@@ -76,12 +77,12 @@ std::string Lexer::determineName(std::string token) {
     else if (isInt(token)) return ("iValue");
     else if (isFloat(token)) return("fValue");
     else {
-        //throw lexing error
-        /* */return ("Bad name");
+        throw LexingException(0, "Invalid Token");
     }
 }
 
 void Lexer::tokenize(void) {
+    int line = 1;
     std::string delimiter = " ";
     size_t stringSize = 0;
     std::string keyWords[] = {"push", "pop", "dump" , "assert" , "add" , "sub", "mul", "div", "mod", "print", "exit", "int8", "int16", "int32", "float", "double", "\n", "(", ")"};
@@ -95,6 +96,7 @@ void Lexer::tokenize(void) {
         } else {
             for(const std::string& word: keyWords) {
                 if (_source.find(word) == 0) {
+                    if (word == "\n") line++;
                     SToken* stoken = new SToken;
                     stoken->name = determineName(word);
                     stoken->value = word;
@@ -115,9 +117,7 @@ void Lexer::tokenize(void) {
             }
         }
         if (stringSize == _source.length()) {
-            /* */std::cout << "error-------------------------------------------" << std::endl;
-            /* */break;
-            //throw error 
+            throw LexingException(line, "Invalid command");
         }
         stringSize = _source.length();
     }
@@ -126,4 +126,20 @@ void Lexer::tokenize(void) {
 //Getters and setters
 std::list<SToken*> Lexer::getTokenList(void) {
     return (this->_tokenList);
+}
+
+//Exceptions
+const char* Lexer::BadFileException::what() const throw() {
+    return("File specified does not exist");
+}
+
+Lexer::LexingException::LexingException(int line, std::string message) {
+    Lexer::LexingException::_line = line;
+    Lexer::LexingException::_message = message;
+}
+
+const char* Lexer::LexingException::what() const throw() {
+    std::string line = std::to_string(Lexer::LexingException::_line);
+    std::string message = "line: " + line + ": " + Lexer::LexingException::_message;
+    return(message.c_str());
 }

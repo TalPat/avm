@@ -1,6 +1,4 @@
-; -------------
-; avm example
-; -------------
+
 
 push  int32(42)
 push int32(33)
@@ -20,3 +18,7 @@ pop
 assert double(42.42)
 
 exit
+
+;-------------
+; avm example
+; -------------

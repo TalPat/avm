@@ -19,6 +19,16 @@ public:
     void checkGrammar(std::list<SToken*> tokenList);
 
     //Getters and setters
+
+    //Exceptions
+    class InvalidInstructionExcepion : public std::exception {
+        private:
+            int _line;
+            std::string _message;
+        public:
+            InvalidInstructionExcepion(int line, std::string message);
+            virtual const char* what() const throw();
+    };
 };
 
 #endif

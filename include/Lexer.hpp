@@ -32,6 +32,22 @@ public:
 
     //Getters and setters
     std::list<SToken*> getTokenList();
+
+    //exceptions
+    class BadFileException : public std::exception {
+        public:
+            virtual const char* what() const throw();
+    };
+
+    class LexingException : public std::exception {
+        private:
+            int _line;
+            std::string _message;
+        public:
+            LexingException(int line, std::string message);
+            virtual const char* what() const throw();
+    };
+
 };
 
 #endif
