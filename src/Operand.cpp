@@ -65,6 +65,19 @@ public:
   ~Operand() {}
 
   //Copy constructor and assignment override
+  Operand(Operand &obj) {
+    *this = obj;
+  }
+
+  Operand& operator=(const Operand &obj) {
+    if (this != &obj) {
+        this->_type = obj._type;
+        this->_typeValue = obj._typeValue;
+        this->_value = obj._value;
+        this->_strVal = obj._strVal;
+    }
+    return (*this);
+  }
 
   //Method functions
   int getPrecision(void) const // Precision of the type of the instance
@@ -186,8 +199,9 @@ public:
     return(_strVal);
   }
 
+  //Getters and setters
   void setValue(double value)
-  { //set overflow check here
+  {
     _value = value;
   }
   double getValue(void) const
@@ -195,7 +209,6 @@ public:
     return (this->_value);
   }
 
-  //Getters and setters
 };
 
 #endif

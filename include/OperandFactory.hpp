@@ -7,9 +7,6 @@
 class OperandFactory
 {
 private:
-  // typedef IOperand const* (OperandFactory::*fnCreate)(std::string& value) const;
-  // //IOperand const* (*_createArr[5])(std::string& value);
-  // fnCreate _createArr[];
 public:
   OperandFactory();
   ~OperandFactory();

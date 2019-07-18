@@ -18,6 +18,8 @@ public:
     ~Vm();
 
     //copy constructor && assignment overload
+    Vm(Vm &obj);
+    Vm& operator=(const Vm &obj);
 
     //vm commands
     void vmPush(std::string value, eOperandType type);
@@ -35,6 +37,32 @@ public:
     void vmExecute(std::list<SToken*> tokenList);
 
     //getters and setters
+
+    //Exceptions
+    class EmptyStackException : public std::exception {
+        public:
+            virtual const char* what() const throw();
+    };
+    class BadAssertExcpetion : public std::exception {
+        public:
+            virtual const char* what() const throw();
+    };
+    class DivisionByZeroException : public std::exception {
+        public:
+            virtual const char* what() const throw();
+    };
+    class NoExitException : public std::exception {
+        public:
+            virtual const char* what() const throw();
+    };
+    class MissingOperandException : public std::exception {
+        public:
+            virtual const char* what() const throw();
+    };
+    class ModFloatException : public std::exception {
+        public:
+            virtual const char* what() const throw();
+    };
 };
 
 #endif

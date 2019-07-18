@@ -13,8 +13,6 @@ public:
     Parser(/* args */);
     ~Parser();
 
-    //Copy constructor & assignment overide
-
     //Class methods
     void checkGrammar(std::list<SToken*> tokenList);
 

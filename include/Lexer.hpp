@@ -17,10 +17,12 @@ private:
     std::string _source;
 public:
     //Constructor and destructor
-    Lexer(/* args */);
+    Lexer();
     ~Lexer();
 
     //Copy constructor & assignment overide
+    Lexer(Lexer &obj);
+    Lexer& operator=(const Lexer &obj);
 
     //Class methods
     void fetchFromFile(std::string avmFile);

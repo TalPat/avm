@@ -10,7 +10,18 @@ Lexer::~Lexer()
 {
 }
 
-//Copy constructor & assignment overide
+//Copy constructor and assignment override
+Lexer::Lexer(Lexer &obj) {
+    *this = obj;
+}
+
+Lexer& Lexer::operator=(const Lexer &obj) {
+    if (this != &obj) {
+        this->_tokenList = obj._tokenList;
+        this->_source = obj._source;
+    }
+    return (*this);
+}
 
 //Class methods
 void Lexer::fetchFromFile(std::string avmFile) {
@@ -24,9 +35,7 @@ void Lexer::fetchFromFile(std::string avmFile) {
         }
         myfile.close();
     } else {
-        // throw error
         throw BadFileException();
-        /* */std::cout << "failing" << std::endl;
     }
 }
 
@@ -101,7 +110,6 @@ void Lexer::tokenize(void) {
                     stoken->name = determineName(word);
                     stoken->value = word;
                     _tokenList.push_back(stoken);
-                    //* */std::cout << _tokenList.back()->name << " " << _tokenList.back()->value << std::endl;
                     _source.erase(0, word.length());
                     break;
                 }
@@ -110,7 +118,6 @@ void Lexer::tokenize(void) {
                     stoken->name = determineName(_source.substr(0, _source.find(")")));
                     stoken->value = _source.substr(0, _source.find(")"));
                     _tokenList.push_back(stoken);
-                    //* */std::cout << _tokenList.back()->name << " " << _tokenList.back()->value << std::endl;
                     _source.erase(0, _source.substr(0, _source.find(")")).length());
                     break;
                 }
