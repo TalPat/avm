@@ -14,7 +14,7 @@ OBJ				=	$(SRC:%.cpp=%.o)
 OBJPATH		:=	$(addprefix $(OBJDIR), $(OBJ))
 
 HEADER		=	./include/
-CFLAGS		= -std=c++11#-Wall -Werror -Wextra
+CFLAGS		= -std=c++11 -Wall -Werror -Wextra
 CC				=	clang++
 INCLUDES	=	-I $(HEADER)
 
